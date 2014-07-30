@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(serializable)
 
-find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs)
+find_package(catkin REQUIRED COMPONENTS roscpp rospy)
 
 catkin_package(
    INCLUDE_DIRS include
    LIBRARIES ${PROJECT_NAME}
-   CATKIN_DEPENDS roscpp rospy std_msgs
+   CATKIN_DEPENDS roscpp rospy
 )
 
 include_directories(include
