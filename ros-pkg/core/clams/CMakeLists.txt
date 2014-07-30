@@ -1,33 +1,36 @@
-cmake_minimum_required(VERSION 2.4.6)
-include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
+cmake_minimum_required(VERSION 2.8.3)
+project(clams)
 
-# Set the build type.  Options are:
-#  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
-#  Debug          : w/ debug symbols, w/o optimization
-#  Release        : w/o debug symbols, w/ optimization
-#  RelWithDebInfo : w/ debug symbols, w/ optimization
-#  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
-#set(ROS_BUILD_TYPE RelWithDebInfo)
+find_package(catkin REQUIRED COMPONENTS roscpp rospy stream_sequence bag_of_tricks eigen_extensions timer)
+find_package(Boost REQUIRED COMPONENTS program_options)
+find_package(OpenCV REQUIRED)
+find_package(PCL 1.7 REQUIRED)
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
 
-rosbuild_init()
-
-#set the default path for built executables to the "bin" directory
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-#set the default path for built libraries to the "lib" directory
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
-
-#uncomment if you have defined messages
-#rosbuild_genmsg()
-#uncomment if you have defined services
-#rosbuild_gensrv()
-
-find_package(VTK REQUIRED)
+find_package(VTK REQUIRED COMPONENTS vtkCommon vtkFiltering vtkRendering)
 if(VTK_FOUND)
-  include(${VTK_USE_FILE})
+  include_directories(${VTK_INCLUDE_DIRS})
 endif()
 
+catkin_package(
+  INCLUDE_DIRS include
+  LIBRARIES ${PROJECT_NAME}
+  CATKIN_DEPENDS roscpp rospy 
+  DEPENDS Boost stream_sequence bag_of_tricks 
+)
+
+include_directories(include
+  ${catkin_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
+  ${PCL_INCLUDE_DIRS}
+)
+
+#set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+#set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+
 #common commands for building c++ executables and libraries
-rosbuild_add_library(clams
+add_library(clams
   src/lib/discrete_depth_distortion_model.cpp
   src/lib/discrete_depth_distortion_model_helpers.cpp
   src/lib/slam_calibrator.cpp
@@ -35,25 +38,24 @@ rosbuild_add_library(clams
   src/lib/trajectory.cpp
   )
 
-rosbuild_add_compile_flags(clams -fopenmp)
-rosbuild_add_link_flags(clams -fopenmp)
-rosbuild_add_boost_directories()
-rosbuild_link_boost(clams program_options)
+set_target_properties(clams PROPERTIES COMPILE_FLAGS -fopenmp)
+set_target_properties(clams PROPERTIES LINK_FLAGS -fopenmp)
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} ${OpenCV_LIBS} bag_of_tricks stream_sequence)
 
-rosbuild_add_executable(inspect src/prog/inspect.cpp)
-target_link_libraries(inspect clams vtkCommon vtkFiltering vtkRendering)
+add_executable(inspect src/prog/inspect.cpp)
+target_link_libraries(inspect ${PROJECT_NAME} ${VTK_LIBRARIES})
 
-rosbuild_add_executable(calibrate src/prog/calibrate.cpp)
-target_link_libraries(calibrate clams)
+add_executable(calibrate src/prog/calibrate.cpp)
+target_link_libraries(calibrate ${PROJECT_NAME})
 
-rosbuild_add_executable(visualize_model src/prog/visualize_model.cpp)
-target_link_libraries(visualize_model clams)
+add_executable(visualize_model src/prog/visualize_model.cpp)
+target_link_libraries(visualize_model ${PROJECT_NAME})
 
-rosbuild_add_executable(convert_trajectory src/prog/convert_trajectory.cpp)
-target_link_libraries(convert_trajectory clams)
+add_executable(convert_trajectory src/prog/convert_trajectory.cpp)
+target_link_libraries(convert_trajectory ${PROJECT_NAME})
 
-rosbuild_add_executable(visualize_trajectory src/prog/visualize_trajectory.cpp)
-target_link_libraries(visualize_trajectory clams)
+add_executable(visualize_trajectory src/prog/visualize_trajectory.cpp)
+target_link_libraries(visualize_trajectory ${PROJECT_NAME})
 
-rosbuild_add_executable(generate_map src/prog/generate_map.cpp)
-target_link_libraries(generate_map clams)
+add_executable(generate_map src/prog/generate_map.cpp)
+target_link_libraries(generate_map ${PROJECT_NAME})

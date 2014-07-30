@@ -32,8 +32,8 @@ add_library(stream_sequence
   src/lib/frame_projector.cpp
   )
 
-target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBS} ${rosconsole_LIBRARIES} gzstream  serializable eigen_extensions)
 set_target_properties(stream_sequence PROPERTIES COMPILE_FLAGS -Wno-deprecated -Wno-unused-but-set-variable -Wno-unknown-pragmas)
 
 add_executable(sseq_to_freiburg src/prog/sseq_to_freiburg.cpp)
-target_link_libraries(sseq_to_freiburg ${PROJECT_NAME} ${PCL_LIBRARIES} ${OpenCV_LIBS} ${rosconsole_LIBRARIES} gzstream serializable)
+target_link_libraries(sseq_to_freiburg ${PROJECT_NAME}   )
