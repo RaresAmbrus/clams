@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<package>
+  <name>serializable</name>
+  <version>0.0.0</version>
+  <description>serializable</description>
+
+  <maintainer email="teichman@todo.todo">teichman</maintainer>
+  <maintainer email="rares@todo.todo">rares</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/serializable</url>
+
+
+  <author email="teichman@todo.todo">Teichman</author>
+
+  <!-- Use test_depend for packages you need only for testing: -->
+  <test_depend>gtest</test_depend>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  
+  <run_depend>rospy</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>std_msgs</run_depend>
+  
+
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+
+   <cpp cflags="-I${prefix}/include"
+	 lflags="-Wl,-rpath,${prefix}/lib -L${prefix}/lib -lserializable" /> 
+
+  </export>
+</package>
+
