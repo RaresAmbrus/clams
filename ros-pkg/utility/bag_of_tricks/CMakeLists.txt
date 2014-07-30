@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(bag_of_tricks)
 
-find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs serializable)
+find_package(catkin REQUIRED COMPONENTS roscpp rospy serializable)
 find_package(Boost REQUIRED COMPONENTS thread)
 
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS roscpp rospy std_msgs
+  CATKIN_DEPENDS roscpp rospy 
   DEPENDS Boost rt serializable
 )
 

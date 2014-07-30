@@ -1,39 +1,46 @@
 <?xml version="1.0"?>
 <package>
-  <name>bag_of_tricks</name>
+  <name>stream_sequence</name>
   <version>0.0.0</version>
-  <description>bag_of_tricks</description>
+  <description>stream_sequence</description>
 
   <maintainer email="teichman@todo.todo">Alex Teichman</maintainer>
   <maintainer email="rares@todo.todo">rares</maintainer>
 
   <license>BSD</license>
 
-  <url type="website">http://ros.org/wiki/bag_of_tricks</url>
+  <url type="website">http://ros.org/wiki/stream_sequence</url>
 
 
   <author email="teichman@todo.todo">Alex Teichman</author>
 
   <!-- Use test_depend for packages you need only for testing: -->
-  <test_depend>gtest</test_depend>
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>rospy</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>serializable</build_depend>
+  <build_depend>eigen_extensions</build_depend>
+  <build_depend>timer</build_depend>
+  <build_depend>gzstream</build_depend>
+  <build_depend>rosconsole</build_depend>
+  <build_depend>rostime</build_depend>
   
   <run_depend>rospy</run_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>serializable</run_depend>
+  <run_depend>eigen_extensions</run_depend>
+  <run_depend>timer</run_depend>
+  <run_depend>gzstream</run_depend>
+  <run_depend>rosconsole</run_depend>
+  <run_depend>rostime</run_depend>
   
 
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
 
-    <cpp cflags="-I${prefix}/include" lflags="-Wl,-rpath,${prefix}/lib -L${prefix}/lib `rosboost-cfg --lflags thread` -lbag_of_tricks" /> 
+    <cpp cflags="-I${prefix}/include"
+	 lflags="-Wl,-rpath,${prefix}/lib -L${prefix}/lib -lstream_sequence `rosboost-cfg --lflags filesystem`" />
 
   </export>
 </package>
-
-
-
