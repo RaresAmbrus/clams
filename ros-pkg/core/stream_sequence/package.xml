@@ -21,7 +21,6 @@
   <build_depend>serializable</build_depend>
   <build_depend>eigen_extensions</build_depend>
   <build_depend>timer</build_depend>
-  <build_depend>gzstream</build_depend>
   <build_depend>rosconsole</build_depend>
   <build_depend>rostime</build_depend>
   
@@ -30,7 +29,6 @@
   <run_depend>serializable</run_depend>
   <run_depend>eigen_extensions</run_depend>
   <run_depend>timer</run_depend>
-  <run_depend>gzstream</run_depend>
   <run_depend>rosconsole</run_depend>
   <run_depend>rostime</run_depend>
   

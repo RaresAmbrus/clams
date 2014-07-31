@@ -12,7 +12,7 @@ catkin_package(
   INCLUDE_DIRS include
   LIBRARIES ${PROJECT_NAME}
   CATKIN_DEPENDS roscpp rospy
-  DEPENDS Boost Eigen gzstream
+  DEPENDS Boost Eigen gzstream 
 )
 
 include_directories(include
@@ -25,10 +25,10 @@ add_library(${PROJECT_NAME}
   src/random.cpp
   )
 
-target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} gzstream)
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} gzstream timer)
 
 catkin_add_gtest(test_random src/test_random.cpp)
-target_link_libraries(test_random ${PROJECT_NAME} gzstream timer) 
+target_link_libraries(test_random ${PROJECT_NAME}) 
 
 catkin_add_gtest(test_eigen_extensions src/test_eigen_extensions.cpp)
 target_link_libraries(test_eigen_extensions ${Boost_LIBRARIES} gzstream)
