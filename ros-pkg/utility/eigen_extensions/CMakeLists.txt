@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(eigen_extensions)
 
-find_package(catkin REQUIRED COMPONENTS roscpp rospy gzstream timer)
+find_package(catkin REQUIRED COMPONENTS roscpp rospy gzstream timer cmake_modules)
 find_package(Boost REQUIRED COMPONENTS system filesystem)
-find_package(Eigen REQUIRED COMPONENTS system filesystem)
+find_package(Eigen REQUIRED)
 
 #set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
